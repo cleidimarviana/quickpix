@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/icon/favicon-16x16.png">
+	<link rel="manifest" href="assets/icon/site.webmanifest">
   <title>Geração de QR Code PIX | QuickPix</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
   <link rel="stylesheet" href="style.css"> 
@@ -57,9 +61,9 @@
 		<div class="digitos">
 
 			<div class="row">
-				<div class="key border-right-bottom" onclick="addToDisplay(1)">1</div>
+				<div style="border-top-left-radius: 15px;" class="key border-right-bottom" onclick="addToDisplay(1)">1</div>
 				<div class="key border-right-bottom" onclick="addToDisplay(2)">2</div>
-				<div class="key border-bottom" onclick="addToDisplay(3)">3</div>
+				<div style="border-top-right-radius: 15px;" class="key border-bottom" onclick="addToDisplay(3)">3</div>
 			</div>
 			<div class="row">
 				<div class="key border-right-bottom" onclick="addToDisplay(4)">4</div>
@@ -73,9 +77,9 @@
 			</div>
 
 			<div class="row">
-				<div class="key border-right" onclick="addToDisplay(',')">,</div>
+				<div style="border-bottom-left-radius: 15px;" class="key border-right" onclick="addToDisplay(',')">,</div>
 				<div class="key border-right" onclick="addToDisplay(0)">0</div>
-				<div class="key" onclick="addToDisplay('C')">C</div>
+				<div style="border-bottom-right-radius: 15px;"  class="key" onclick="addToDisplay('C')">C</div>
 			</div>
 		</div>
 

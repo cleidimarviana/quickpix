@@ -1,0 +1,123 @@
+
+  p {
+    color: #ccc;
+    font-size: 1.3rem;
+  }
+  select{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline;
+    height: 3.4rem;
+  }
+  input{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline;
+    height: 2rem;
+    font-size: larger;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    
+   
+    cursor: pointer;
+    text-transform: uppercase;
+    height: 3rem;
+    font-size: larger;
+  }
+  .btn-primary{
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  .btn-light{
+    background-color: #e4e4e4;
+    color: black;
+  }
+  .btn-light:hover {
+    background-color: #afafaf;
+  }
+  .btn-quick{
+    text-align: center;
+    width: 98%;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    text-align: center;
+  }
+
+  #display {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ccc;
+    background-color: #fdfdfd;
+    text-align: right;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-left: 2px;
+    margin-right: 2px;
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end; 
+    padding-right: 10px; 
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .key {
+    width: 30%;
+    margin: 2px;
+    padding: 30px;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+#divqr{
+    text-align: center;
+}
+#data{
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+#valor{
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+#recipient{
+  font-size: larger;
+  margin-top: 20px;
+}

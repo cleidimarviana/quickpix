@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geração de QR Code PIX | QuickPix</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css"> 
+
+  <script>
+    const RECIPIENT_KEY = "recipient";
+		const DATA_KEY = "data";
+		const DIVQR_KEY = "divqr";
+		const CALCULATOR_KEY = "calculator";
+		const DISPLAY_KEY = "display";
+
+    window.onload = function() {
+      var recipient = localStorage.getItem(RECIPIENT_KEY);
+      if (recipient) {
+        document.getElementById(DATA_KEY).style.display = 'none';
+        document.getElementById(CALCULATOR_KEY).style.display = 'block';
+      }
+    }    
+  </script>
+</head>
+<body>
+  <div style="display: none;" id="divqr">
+		<div id="recipient"></div>
+		<div id="valor"></div>
+    <canvas id="qrcode"></canvas>
+    <button class="btn-primary" onclick="voltar()">Voltar</button>
+  </div>
+  
+  <div id="data">
+    <h2>Geração de QR Code</h2>
+    <p>Salvar dados do recebedor</p>
+    <div>
+      <select id="keyType">
+        <option value="cpf">CPF</option>
+        <option value="cnpj">CNPJ</option>
+        <option value="email">E-mail</option>
+        <option value="telefone">Telefone</option>
+        <option value="aleatoria">Aleatória</option>
+      </select>
+      <input type="text" id="pixKey" placeholder="Insira a chave Pix" />
+    </div>		
+    <input type="text" id="receiverName" maxlength="25" placeholder="Nome do recebedor" />
+    <input type="text" id="receiverCity" placeholder="Cidade do recebedor" />
+
+    <button class="btn-primary" style="margin-top: 2rem;" onclick="salvarDados()">Salvar Dados</button>
+  </div>
+
+  <div id="calculator" class="container" style="display: none;">
+    <div class="row">
+      <div id="display"></div>
+    </div>
+    <div class="row">
+      <div class="key" onclick="addToDisplay(7)">7</div>
+      <div class="key" onclick="addToDisplay(8)">8</div>
+      <div class="key" onclick="addToDisplay(9)">9</div>
+    </div>
+    <div class="row">
+      <div class="key" onclick="addToDisplay(4)">4</div>
+      <div class="key" onclick="addToDisplay(5)">5</div>
+      <div class="key" onclick="addToDisplay(6)">6</div>
+    </div>
+    <div class="row">
+      <div class="key" onclick="addToDisplay(1)">1</div>
+      <div class="key" onclick="addToDisplay(2)">2</div>
+      <div class="key" onclick="addToDisplay(3)">3</div>
+    </div>
+    <div class="row">
+      <div class="key" onclick="addToDisplay(0)">0</div>
+      <div class="key" onclick="addToDisplay(',')">,</div>
+      <div class="key" onclick="addToDisplay('C')">C</div>
+    </div>
+
+    <button class="btn-primary" onclick="gerar()">Gerar QR Code</button>
+
+    <button class="btn-light" onclick="removeStorage()">Apagar dados locais</button>
+  </div>
+
+  <script src="main.js"></script>
+	<script>
+		function addToDisplay(value) {
+      const display = document.getElementById(DISPLAY_KEY);
+      if (value === "C") {
+        display.textContent = '';
+      } else {
+        display.textContent += value;
+      }   
+    }
+
+    function salvarDados() {
+      const pixKey = document.getElementById('pixKey').value;
+      const receiverName = document.getElementById('receiverName').value;
+      const receiverCity = document.getElementById('receiverCity').value;
+      const keyType = document.getElementById('keyType').value;
+
+      var beneficiario = {
+        tipo: keyType,
+        chave: pixKey,
+        nome: receiverName,
+        cidade: receiverCity
+      }
+      localStorage.setItem(RECIPIENT_KEY, JSON.stringify(beneficiario));	
+      clear();
+    }
+
+    function gerar() {
+      const beneficiarioSalvo = localStorage.getItem(RECIPIENT_KEY);
+      const beneficiario = beneficiarioSalvo ? JSON.parse(beneficiarioSalvo) : {};
+
+      const numeroString = document.getElementById(DISPLAY_KEY).textContent;
+      const numeroFloat = parseFloat(numeroString.replace(',', '.'));
+
+      const gerado = GerarQRCodePixEstatico(beneficiario, numeroFloat);
+
+      // Exibindo o QR code e ocultando a calculadora
+      document.getElementById(DIVQR_KEY).style.display = 'block';
+      document.getElementById(CALCULATOR_KEY).style.display = 'none';
+			
+      generateQRCode(gerado);
+
+			const valor = document.getElementById('valor');
+			valor.textContent = formatarMoeda(numeroFloat);
+
+			const recipient = document.getElementById(RECIPIENT_KEY);
+			recipient.textContent = "Nome: "+ beneficiario.nome;			
+
+    }
+
+    function clear() {
+      document.getElementById(DATA_KEY).style.display = 'none';
+      document.getElementById(DIVQR_KEY).style.display = 'none';
+      document.getElementById(CALCULATOR_KEY).style.display = 'block';
+      document.getElementById(DISPLAY_KEY).textContent = '';
+    }
+		function voltar(){
+			document.getElementById(DIVQR_KEY).style.display = 'none';
+			document.getElementById(CALCULATOR_KEY).style.display = 'block';
+      document.getElementById(DISPLAY_KEY).textContent = '';
+		}
+
+    function removeStorage() {
+      localStorage.removeItem(RECIPIENT_KEY);
+			document.getElementById(DATA_KEY).style.display = 'block';
+      document.getElementById(DIVQR_KEY).style.display = 'none';
+      document.getElementById(CALCULATOR_KEY).style.display = 'none';
+      document.getElementById(DISPLAY_KEY).textContent = '';
+    }
+	</script>
+</body>
+</html>

@@ -54,26 +54,30 @@
     <div class="row">
       <div id="display"></div>
     </div>
-    <div class="row">
-      <div class="key" onclick="addToDisplay(7)">7</div>
-      <div class="key" onclick="addToDisplay(8)">8</div>
-      <div class="key" onclick="addToDisplay(9)">9</div>
-    </div>
-    <div class="row">
-      <div class="key" onclick="addToDisplay(4)">4</div>
-      <div class="key" onclick="addToDisplay(5)">5</div>
-      <div class="key" onclick="addToDisplay(6)">6</div>
-    </div>
-    <div class="row">
-      <div class="key" onclick="addToDisplay(1)">1</div>
-      <div class="key" onclick="addToDisplay(2)">2</div>
-      <div class="key" onclick="addToDisplay(3)">3</div>
-    </div>
-    <div class="row">
-      <div class="key" onclick="addToDisplay(0)">0</div>
-      <div class="key" onclick="addToDisplay(',')">,</div>
-      <div class="key" onclick="addToDisplay('C')">C</div>
-    </div>
+		<div class="digitos">
+
+			<div class="row">
+				<div class="key border-right-bottom" onclick="addToDisplay(1)">1</div>
+				<div class="key border-right-bottom" onclick="addToDisplay(2)">2</div>
+				<div class="key border-bottom" onclick="addToDisplay(3)">3</div>
+			</div>
+			<div class="row">
+				<div class="key border-right-bottom" onclick="addToDisplay(4)">4</div>
+				<div class="key border-right-bottom" onclick="addToDisplay(5)">5</div>
+				<div class="key border-bottom" onclick="addToDisplay(6)">6</div>
+			</div>
+			<div class="row">
+				<div class="key border-right-bottom" onclick="addToDisplay(7)">7</div>
+				<div class="key border-right-bottom" onclick="addToDisplay(8)">8</div>
+				<div class="key border-bottom" onclick="addToDisplay(9)">9</div>
+			</div>
+
+			<div class="row">
+				<div class="key border-right" onclick="addToDisplay(',')">,</div>
+				<div class="key border-right" onclick="addToDisplay(0)">0</div>
+				<div class="key" onclick="addToDisplay('C')">C</div>
+			</div>
+		</div>
 
     <button class="btn-primary" onclick="gerar()">Gerar QR Code</button>
 

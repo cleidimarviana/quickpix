@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="assets/icon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/icon/favicon-16x16.png">
 	<link rel="manifest" href="assets/icon/site.webmanifest">
-  <title>Geração de QR Code PIX | QuickPix</title>
+  <title>QR Code PIX Gerador | QuickPix</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
   <link rel="stylesheet" href="style.css"> 
 
@@ -17,12 +17,21 @@
 		const DIVQR_KEY = "divqr";
 		const CALCULATOR_KEY = "calculator";
 		const DISPLAY_KEY = "display";
+    const BTN_REMOVE = "btn-remove";
 
+    function getElement(id) {
+        return document.getElementById(id);
+    }
     window.onload = function() {
       var recipient = localStorage.getItem(RECIPIENT_KEY);
       if (recipient) {
-        document.getElementById(DATA_KEY).style.display = 'none';
-        document.getElementById(CALCULATOR_KEY).style.display = 'block';
+        getElement(DATA_KEY).style.display = 'none';
+        getElement(CALCULATOR_KEY).style.display = 'inline';
+
+        getElement(BTN_REMOVE).style.display = 'inline';        
+      } else {
+        getElement(DATA_KEY).style.display = 'inline';
+        getElement(BTN_REMOVE).style.display = 'none';     
       }
     }    
   </script>
@@ -35,28 +44,27 @@
     <button class="btn-primary" onclick="voltar()">Voltar</button>
   </div>
   
-  <div id="data">
+  <div style="display: none;" id="data">
     <h2>Geração de QR Code</h2>
     <p>Salvar dados do recebedor</p>
-    <div>
-      <select id="keyType">
-        <option value="cpf">CPF</option>
-        <option value="cnpj">CNPJ</option>
-        <option value="email">E-mail</option>
-        <option value="telefone">Telefone</option>
-        <option value="aleatoria">Aleatória</option>
-      </select>
-      <input type="text" id="pixKey" placeholder="Insira a chave Pix" />
-    </div>		
+    <select id="keyType">
+      <option value="cpf">CPF</option>
+      <option value="cnpj">CNPJ</option>
+      <option value="email">E-mail</option>
+      <option value="telefone">Telefone</option>
+      <option value="aleatoria">Aleatória</option>
+    </select>
+    <input type="text" id="pixKey" placeholder="Insira a chave Pix" />	
     <input type="text" id="receiverName" maxlength="25" placeholder="Nome do recebedor" />
     <input type="text" id="receiverCity" placeholder="Cidade do recebedor" />
 
     <button class="btn-primary" style="margin-top: 2rem;" onclick="salvarDados()">Salvar Dados</button>
+    <button style="display: none;" id="btn-remove" class="btn-light" onclick="removeStorage()">Apagar dados locais</button>
   </div>
 
   <div id="calculator" class="container" style="display: none;">
     <div class="row">
-      <div id="display"></div>
+      <div id="display">0,00</div>
     </div>
 		<div class="digitos">
 
@@ -77,33 +85,68 @@
 			</div>
 
 			<div class="row">
-				<div style="border-bottom-left-radius: 15px;" class="key border-right" onclick="addToDisplay(',')">,</div>
+				<div style="border-bottom-left-radius: 15px;" class="key border-right" onclick="addToDisplay('⭠')">⭠</div>
 				<div class="key border-right" onclick="addToDisplay(0)">0</div>
 				<div style="border-bottom-right-radius: 15px;"  class="key" onclick="addToDisplay('C')">C</div>
 			</div>
 		</div>
 
     <button class="btn-primary" onclick="gerar()">Gerar QR Code</button>
-
-    <button class="btn-light" onclick="removeStorage()">Apagar dados locais</button>
+    <button class="btn-light" onclick="editarStorage()">Editar dados locais</button>
+    
   </div>
 
   <script src="main.js"></script>
 	<script>
+    
 		function addToDisplay(value) {
-      const display = document.getElementById(DISPLAY_KEY);
+      const display = getElement(DISPLAY_KEY);
+
+      // Reset display if "C" is pressed
       if (value === "C") {
-        display.textContent = '';
-      } else {
-        display.textContent += value;
-      }   
+          display.textContent = '0,00';
+          return;
+      }
+
+      // Handle back arrow press
+      if (value === "⭠") {
+          let currentValue = display.textContent.replace(',', '').replace(/\./g, '');
+          if (currentValue.length > 1) {
+              currentValue = currentValue.slice(0, -1);
+              let newValue = parseFloat(currentValue) / 100;
+              display.textContent = formatNumber(newValue);
+          } else {
+              display.textContent = '0,00';
+          }
+          return;
+      }
+
+      // Get the current displayed value
+      let currentValue = display.textContent.replace('.', '').replace(',', '');
+
+      // Check if the length of the value exceeds the limit of 8 characters
+      if (currentValue.length >= 8) {
+          return; // Do nothing if the length exceeds 8 characters
+      }
+
+      // Remove the comma and transform to a number
+      let numericValue = parseFloat(currentValue) / 100;
+
+      // Add the new digit
+      numericValue = numericValue * 10 + parseInt(value) / 100;
+
+      // Update the display
+      display.textContent = formatNumber(numericValue);
     }
 
+    function formatNumber(num) {
+        return num.toFixed(2).replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.');
+    }
     function salvarDados() {
-      const pixKey = document.getElementById('pixKey').value;
-      const receiverName = document.getElementById('receiverName').value;
-      const receiverCity = document.getElementById('receiverCity').value;
-      const keyType = document.getElementById('keyType').value;
+      const pixKey = getElement('pixKey').value;
+      const receiverName = getElement('receiverName').value;
+      const receiverCity = getElement('receiverCity').value;
+      const keyType = getElement('keyType').value;
 
       var beneficiario = {
         tipo: keyType,
@@ -119,44 +162,73 @@
       const beneficiarioSalvo = localStorage.getItem(RECIPIENT_KEY);
       const beneficiario = beneficiarioSalvo ? JSON.parse(beneficiarioSalvo) : {};
 
-      const numeroString = document.getElementById(DISPLAY_KEY).textContent;
-      const numeroFloat = parseFloat(numeroString.replace(',', '.'));
+      
+    const numeroString = getElement(DISPLAY_KEY).textContent.replace(/\./g, '');
+    const numeroFloat = parseFloat(numeroString.replace(',', '.'));
 
       const gerado = GerarQRCodePixEstatico(beneficiario, numeroFloat);
 
       // Exibindo o QR code e ocultando a calculadora
-      document.getElementById(DIVQR_KEY).style.display = 'block';
-      document.getElementById(CALCULATOR_KEY).style.display = 'none';
+      getElement(DIVQR_KEY).style.display = 'inline';
+      getElement(CALCULATOR_KEY).style.display = 'none';
 			
       generateQRCode(gerado);
 
-			const valor = document.getElementById('valor');
+			const valor = getElement('valor');
 			valor.textContent = formatarMoeda(numeroFloat);
 
-			const recipient = document.getElementById(RECIPIENT_KEY);
+			const recipient = getElement(RECIPIENT_KEY);
 			recipient.textContent = "Nome: "+ beneficiario.nome;			
 
     }
 
     function clear() {
-      document.getElementById(DATA_KEY).style.display = 'none';
-      document.getElementById(DIVQR_KEY).style.display = 'none';
-      document.getElementById(CALCULATOR_KEY).style.display = 'block';
-      document.getElementById(DISPLAY_KEY).textContent = '';
+      getElement(DATA_KEY).style.display = 'none';
+      getElement(DIVQR_KEY).style.display = 'none';
+      getElement(CALCULATOR_KEY).style.display = 'inline';
+      getElement(DISPLAY_KEY).textContent = '0,00';
     }
 		function voltar(){
-			document.getElementById(DIVQR_KEY).style.display = 'none';
-			document.getElementById(CALCULATOR_KEY).style.display = 'block';
-      document.getElementById(DISPLAY_KEY).textContent = '';
+			getElement(DIVQR_KEY).style.display = 'none';
+			getElement(CALCULATOR_KEY).style.display = 'inline';
+      getElement(DISPLAY_KEY).textContent = '0,00';
 		}
 
     function removeStorage() {
       localStorage.removeItem(RECIPIENT_KEY);
-			document.getElementById(DATA_KEY).style.display = 'block';
-      document.getElementById(DIVQR_KEY).style.display = 'none';
-      document.getElementById(CALCULATOR_KEY).style.display = 'none';
-      document.getElementById(DISPLAY_KEY).textContent = '';
+			getElement(DATA_KEY).style.display = 'inline';
+      getElement(DIVQR_KEY).style.display = 'none';
+      getElement(CALCULATOR_KEY).style.display = 'none';
+      getElement(DISPLAY_KEY).textContent = '0,00';
+      getElement(BTN_REMOVE).style.display = 'none'; 
+
+      getElement('pixKey').value = "";
+      getElement('receiverName').value = "";
+      getElement('receiverCity').value = "";
+      getElement('keyType').value = "";       
     }
+
+    function editarStorage() {
+      // Mostra a seção de dados e esconde as outras
+      getElement(DATA_KEY).style.display = 'inline';
+      getElement(DIVQR_KEY).style.display = 'none';
+      getElement(CALCULATOR_KEY).style.display = 'none';
+      getElement(DISPLAY_KEY).textContent = 'R$ 0,00'; // Adiciona o prefixo 'R$'
+
+      // Obtém os dados do destinatário armazenados no localStorage
+      var recipient = localStorage.getItem(RECIPIENT_KEY);
+      if (recipient) {
+        recipient = JSON.parse(recipient); // Parseia o JSON
+
+        getElement('pixKey').value = recipient.chave;
+        getElement('receiverName').value = recipient.nome;
+        getElement('receiverCity').value = recipient.cidade;
+        getElement('keyType').value = recipient.tipo; 
+
+        getElement(BTN_REMOVE).style.display = 'inline'; 
+      }
+    }
+
 	</script>
 </body>
 </html>

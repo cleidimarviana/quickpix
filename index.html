@@ -48,6 +48,7 @@
     <h2>Geração de QR Code</h2>
     <p>Salvar dados do recebedor</p>
     <select id="keyType">
+      <option  value="">Selecione o tipo de chave</option>
       <option value="cpf">CPF</option>
       <option value="cnpj">CNPJ</option>
       <option value="email">E-mail</option>
@@ -58,7 +59,7 @@
     <input type="text" id="receiverName" maxlength="25" placeholder="Nome do recebedor" />
     <input type="text" id="receiverCity" placeholder="Cidade do recebedor" />
 
-    <button class="btn-primary" style="margin-top: 2rem;" onclick="salvarDados()">Salvar Dados</button>
+    <button class="btn-primary" style="margin-top: 1rem;" onclick="salvarDados()">Salvar Dados</button>
     <button style="display: none;" id="btn-remove" class="btn-light" onclick="removeStorage()">Apagar dados locais</button>
   </div>
 
@@ -69,9 +70,9 @@
 		<div class="digitos">
 
 			<div class="row">
-				<div style="border-top-left-radius: 15px;" class="key border-right-bottom" onclick="addToDisplay(1)">1</div>
+				<div style="border-top-left-radius: 5px;" class="key border-right-bottom" onclick="addToDisplay(1)">1</div>
 				<div class="key border-right-bottom" onclick="addToDisplay(2)">2</div>
-				<div style="border-top-right-radius: 15px;" class="key border-bottom" onclick="addToDisplay(3)">3</div>
+				<div style="border-top-right-radius: 5px;" class="key border-bottom" onclick="addToDisplay(3)">3</div>
 			</div>
 			<div class="row">
 				<div class="key border-right-bottom" onclick="addToDisplay(4)">4</div>
@@ -85,9 +86,9 @@
 			</div>
 
 			<div class="row">
-				<div style="border-bottom-left-radius: 15px;" class="key border-right" onclick="addToDisplay('⭠')">⭠</div>
+				<div style="border-bottom-left-radius: 5px;" class="key border-right" onclick="addToDisplay('⭠')">⭠</div>
 				<div class="key border-right" onclick="addToDisplay(0)">0</div>
-				<div style="border-bottom-right-radius: 15px;"  class="key" onclick="addToDisplay('C')">C</div>
+				<div style="border-bottom-right-radius: 5px;"  class="key" onclick="addToDisplay('C')">C</div>
 			</div>
 		</div>
 

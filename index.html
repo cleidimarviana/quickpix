@@ -37,7 +37,7 @@
   </script>
 </head>
 <body>
-  <div style="display: none;" id="divqr">
+  <div id="divqr">
 		<div id="recipient"></div>
 		<div id="valor"></div>
     <canvas id="qrcode"></canvas>
@@ -179,7 +179,7 @@
 			valor.textContent = formatarMoeda(numeroFloat);
 
 			const recipient = getElement(RECIPIENT_KEY);
-			recipient.textContent = "Nome: "+ beneficiario.nome;			
+			recipient.textContent = beneficiario.nome;			
 
     }
 

@@ -122,20 +122,22 @@ button {
 }
 
 .border-right-bottom {
-  border-bottom: 1px solid #f1f1f1;
-  border-right: 1px solid #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #ddd;
 }
 
 .border-right {
-  border-right: 1px solid #f1f1f1;
+  border-right: 1px solid #ddd;
 }
 
 #divqr {
   text-align: center;
+  padding: 0 0.7rem;
+  display: none;
 }
 
 #data {
@@ -145,9 +147,9 @@ button {
 }
 
 #valor {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 600;
-  margin-top: 10px;
+  margin: 10px 10px;
 }
 
 #recipient {

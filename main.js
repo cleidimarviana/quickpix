@@ -163,7 +163,7 @@ function GerarCRC16_CCITT(payload) {
 	}
 
   function generateQRCode(text){
-		QRCode.toCanvas(document.getElementById('qrcode'), text, { width: 360 }, function (error) {
+		QRCode.toCanvas(document.getElementById('qrcode'), text, { width: 340 }, function (error) {
 		if (error) {
 						console.error(error);
 		} else {

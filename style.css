@@ -1,173 +1,162 @@
-Copy code
-p {
-    color: #555;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f1f1;
 }
-select, input {
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 0 0.7rem;
+}
+
+p {
+  color: #555;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   padding: 10px;
-  margin: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  display: block;
-  width: calc(100%); /* Ajusta a largura para caber no contêiner */
-  font-size: 1rem;
+  background-color: white;
+  font-size: 1.1rem;
+  width: -webkit-fill-available;
+  margin-bottom: 8px;
+  height: 3.4rem;
+}
+
+option {
+  background-color: white;
+  color: black;
+}
+
+option:hover {
+  background-color: #f0f0f0;
 }
 
 input {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: block;
-    width: calc(100% - 22px); /* Ajusta a largura para caber no contêiner */
-    font-size: 1rem;
-}
-
-input {
-    height: 2.5rem; /* Aumenta a altura para combinar com o select */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  width: -webkit-fill-available;
+  font-size: 1.1rem;
+  height: 2.2rem;
 }
 
 button {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: none;
-    border-radius: 15px; 
-    cursor: pointer;
-    text-transform: uppercase;
-    height: 3rem;
-    font-size: 1rem;
-    margin-top: 1rem;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 3rem;
+  font-size: 1rem;
+  margin-top: 1rem;
 }
 
 .btn-primary {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .btn-light {
-    background-color: #f5f5f5;
-    color: black;
-    border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: black;
+  border: 1px solid #ccc;
 }
 
 .btn-light:hover {
-    background-color: #eeeeee;
-}
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f1f1f1;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    padding-left: 0.7rem;
-    padding-right: 0.7rem;
-  }
-
-  #display {
-    width: 100%;
-    height: 70px;
-    text-align: center; /* Alinha o texto ao centro */
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
-    display: flex;
-    align-items: center; /* Alinhamento vertical central */
-    justify-content: center; /* Alinhamento horizontal central */
-    padding-right: 10px;
+  background-color: #eeeeee;
 }
 
-  .row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .key {
-    width: 30%;
-    padding: 32px;
-    text-align: center;
-    font-size: 1.4rem;
-    cursor: pointer;
-    
-  }
-  .key:hover{
-    background-color: #fcfcfc;
-  }
-  .key:active{
-    background-color: #f1f1f1;
-  }
-
-  .border-right-bottom {
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;  
-  }
-  .border-bottom {
-    border-bottom: 1px solid #ccc;
-  }
-  .border-right {
-    border-right: 1px solid #ccc;
-  }
-
-
-#divqr{
-    text-align: center;
+#display {
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
 }
-#data{
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.key {
+  width: 30%;
+  padding: 32px;
+  text-align: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.key:hover {
+  background-color: #fcfcfc;
+}
+
+.key:active {
+  background-color: #f1f1f1;
+}
+
+.border-right-bottom {
+  border-bottom: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.border-right {
+  border-right: 1px solid #f1f1f1;
+}
+
+#divqr {
+  text-align: center;
+}
+
+#data {
   width: 100%;
   max-width: 400px;
   text-align: center;
 }
-#valor{
+
+#valor {
   font-size: 2rem;
   font-weight: 600;
   margin-top: 10px;
 }
-#recipient{
+
+#recipient {
   font-size: larger;
   margin-top: 20px;
 }
+
 .digitos {
-  border: 1px solid #ccc;
-  border-radius: 1rem;
+  border-radius: 5px;
   background-color: #fff;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn {
-    background-color: #4CAF50; /* Cor de fundo do botão */
-    color: white; /* Cor do texto */
-    border: none; /* Remove bordas */
-    padding: 15px 32px; /* Espaçamento interno */
-    text-align: center; /* Centraliza o texto */
-    text-decoration: none; /* Remove sublinhado */
-    display: inline-block; /* Alinha com outros elementos em linha */
-    font-size: 16px; /* Tamanho do texto */
-    margin: 4px 2px; /* Margem ao redor do botão */
-    cursor: pointer; /* Cursor de mão ao passar por cima */
-    border-radius: 4px; /* Borda arredondada */
-    transition: all 0.2s ease; /* Transição suave para efeitos */
-    box-shadow: 0 5px #666; /* Sombra inferior */
-}
-
-/* Efeito de clique (profundidade) */
-.btn:active {
-    background-color: #3e8e41; /* Cor de fundo ao clicar */
-    box-shadow: 0 2px #666; /* Sombra reduzida */
-    transform: translateY(4px); /* Move o botão para baixo */
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
 }

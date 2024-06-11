@@ -45,9 +45,9 @@
   </div>
   
   <div style="display: none;" id="data">
-    <h2>Geração de QR Code</h2>
-    <p>Salvar dados do recebedor</p>
-    <select id="keyType">
+    <h2>QuickPix - Gerador de QR Code</h2>
+    <p>Preencha abaixo os dados do recebedor:</p>
+    <select style="margin-top: 1rem;" id="keyType">
       <option  value="">Selecione o tipo de chave</option>
       <option value="cpf">CPF</option>
       <option value="cnpj">CNPJ</option>
@@ -86,7 +86,7 @@
 			</div>
 
 			<div class="row">
-				<div style="border-bottom-left-radius: 5px;" class="key border-right" onclick="addToDisplay('⭠')">⭠</div>
+				<div style="border-bottom-left-radius: 5px;" class="key border-right" onclick="addToDisplay('back')">⇐</div>
 				<div class="key border-right" onclick="addToDisplay(0)">0</div>
 				<div style="border-bottom-right-radius: 5px;"  class="key" onclick="addToDisplay('C')">C</div>
 			</div>
@@ -110,7 +110,7 @@
       }
 
       // Handle back arrow press
-      if (value === "⭠") {
+      if (value === "back") {
           let currentValue = display.textContent.replace(',', '').replace(/\./g, '');
           if (currentValue.length > 1) {
               currentValue = currentValue.slice(0, -1);
